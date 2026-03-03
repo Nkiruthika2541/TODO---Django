@@ -1,0 +1,53 @@
+{% extends 'Master.html' %}
+
+{% block title %}
+  View Task
+{% endblock %}
+
+
+{% block content %}
+<br>
+<div class="container text-left ">
+{% if tasks %}
+  
+  <div class="row">
+    {% for t in tasks %}
+    <div class="col-4 card ">
+      <h4 class="card-header text-bg-primary">{{ t.task }}</h4>
+      <div class="card-body h-1.5">
+        <span class="fw-lighter fst-italic text-right fs-6">Task created by {{ t.created_on|date:"jS F Y" }}</span>
+        
+        {% if t.status %}
+          <div class="card-text">Status : Completed</div>
+        {% else %}
+          <div class="card-text">Status : Not Completed</div>
+          <p><strong>Due On</strong> : {{ t.due_on }}</p>
+        {% endif %}
+      </div>
+      <div class="card-footer">
+        <a href="{%  url 'update' t.id %} " class="text-decoration-none btn btn-success">Update</a>
+        <a href="{%  url 'delete' t.id %}" class="text-decoration-none btn btn-danger">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+{% else %}
+No tasks created yet.
+{% endif %}
+</div>
+
+    <h2></h2>
+    
+  <hr />
+  
+  
+
+{% if messages %}
+  <script>
+ {% for i in messages %}
+   alert("{{ i }}")
+ {% endfor %}
+ </script>
+{% endif %}
+{% endblock %}

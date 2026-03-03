@@ -1,0 +1,22 @@
+{% extends 'Master.html' %}
+
+{% block title %}
+  Delete Task
+{% endblock %}
+
+
+{% block content %}
+<form method="post" accept-charset="utf-8" onsubmit="return confirm('Are you sure you want ot delete this task ?')">
+  {% csrf_token %}
+    <h2>{{ delete_task.task }}</h2>
+    {% if delete_task.status %}
+      <p><strong>Status</strong> : Completed</p>
+    {% else %}
+      <p><strong>Status</strong> : Not Completed</p>
+    {% endif %}
+    <p><strong>Created On</strong> : {{ delete_task.created_on }}</p>
+    <p><strong>Due On</strong> : {{ delete_task.due_on }}</p>
+  <input type="submit" value="Delete Task" />
+</form>
+
+{% endblock %}
