@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib import messages
 
-from todo_app.forms import Todo_Task_Form,Update_Task_Form
-from todo_app.models import Todo_Task_Model
+from todo_app.forms import Todo_Task_Form, Update_Task_Form, Category_Form
+from todo_app.models import Todo_Task_Model, Category_Model
 
 # Create your views here.
 def hello(request):
@@ -19,11 +19,25 @@ def create(request):
     form = Todo_Task_Form(request.POST)
     if form.is_valid():
       form.save()
-      return redirect('create')
+      messages.success(request,'Task Added Successfully')
+      return redirect('home')
   else:
     form = Todo_Task_Form()
     
   return render(request,'Create.html',{"form":form})
+  
+def category(request):
+  if request.method == "POST":
+    form = Category_Form(request.POST)
+    if form.is_valid():
+      form.save()
+      messages.success(request,'Category Created Successfully')
+      return redirect('home')
+  else:
+    form = Category_Form()
+    
+  return render(request,'Category.html',{'form':form})
+  
   
   
 def update(request,task_id):
@@ -33,7 +47,7 @@ def update(request,task_id):
     if form.is_valid():
       form.save()
       messages.success(request,'Task Updated Successfully')
-      return redirect('view_task')
+      return redirect('home')
   else:
     form = Todo_Task_Form(instance=update_task)
     
@@ -44,7 +58,7 @@ def delete(request,task_id):
   if request.method == 'POST':
       delete_task.delete()
       messages.success(request,'Task deleted Successfully')
-      return redirect('view_task')
+      return redirect('home')
   else:
     messages.error(request,"Task doesn't exist.")
   return render(request,'Delete.html',{'delete_task':det})

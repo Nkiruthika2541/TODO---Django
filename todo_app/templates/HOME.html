@@ -15,31 +15,44 @@
  {% endfor %}
  </script>
 {% endif %}
-<div class="container text-left">
+<div class="container text-left ">
 {% if tasks %}
   
   <div class="row ">
     {% for t in tasks %}
-    <div class="col-5 card m-3 p-3">
-      {% if t.status %}
-        <h4 class="card-header text-bg-success">{{ t.task }}</h4>
-        <div class="card-body h-1.5">
-          <span class="fw-lighter fst-italic text-right fs-6">Task created by {{ t.created_on|date:"jS F Y" }}</span>
-          <div class="card-text"><span class="fw-bold">Status :</span> Completed</div>
-        </div>
-      {% else %}
-        <h4 class="card-header text-bg-secondary">{{ t.task }}</h4>
+    
+      {% if t.status == "completed" %}
+        <div class="col-5 card m-3 p-3 border-2 border-success">
+          <h4 class="card-header text-bg-success">{{ t.task }}</h4>
           <div class="card-body h-1.5">
             <span class="fw-lighter fst-italic text-right fs-6">Task created by {{ t.created_on|date:"jS F Y" }}</span>
-            <div class="card-text"><span class="fw-bold">Status :</span> Not Completed</div>
+            <div class="card-text"><span class="fw-bold">Status :</span> Completed</div>
+            <div class="card-text"><span class="fw-bold">Category :</span> {{ t.category }}</div>
+          </div>
+          <div class="card-footer">
+            <a href="{%  url 'update' t.id %} " class="text-decoration-none btn btn-success">Update</a>
+            <a href="{%  url 'delete' t.id %}" class="text-decoration-none btn btn-danger">Delete</a>
+          </div>
+        </div>
+      {% else %}
+        <div class="col-5 card m-3 p-3 border-2 border-danger">
+          <h4 class="card-header text-bg-secondary">{{ t.task }}</h4>
+          <div class="card-body h-1.5">
+            <span class="fw-lighter fst-italic text-right fs-6">Task created by {{ t.created_on|date:"jS F Y" }}</span>
+            <div class="card-text"><span class="fw-bold">Status :</span> Pending</div>
+            {% if t.category %}
+              <div class="card-text"><span class="fw-bold">Category :</span> {{ t.category }}</div>
+            {% else %}
+              <div class="card-text"><span class="fw-bold">Category :</span> Uncategorized</div>
+            {% endif %}
             <p><span class="fw-bold">Due On :</span> {{ t.due_on }}</p>
           </div>
+          <div class="card-footer">
+            <a href="{%  url 'update' t.id %} " class="text-decoration-none btn btn-success">Update</a>
+            <a href="{%  url 'delete' t.id %}" class="text-decoration-none btn btn-danger">Delete</a>
+          </div>
+        </div>
       {% endif %}
-      <div class="card-footer">
-        <a href="{%  url 'update' t.id %} " class="text-decoration-none btn btn-success">Update</a>
-        <a href="{%  url 'delete' t.id %}" class="text-decoration-none btn btn-danger">Delete</a>
-      </div>
-    </div>
     {% endfor %}
   </div>
   

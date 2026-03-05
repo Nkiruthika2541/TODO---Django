@@ -1,0 +1,47 @@
+{% extends 'Master.html' %}
+
+{% block title %}
+  Create Category
+{% endblock %}
+
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card shadow">
+        <div class="card-header bg-success text-white">
+          <h4 class="mb-0">Create Category</h4>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <br />
+            <!-- Category Field -->
+            <div class="mb-3">
+              <label for="{{ form.categories.id_for_label }}" class="form-label">
+                Category
+              </label>
+              
+              {{ form.categories }}
+              {% if form.categories.errors %}
+                <div class="text-danger small">
+                  {{ form.categories.errors }}
+                </div>
+              {% endif %}
+            </div>
+            <br />
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success">
+                Add Category
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
