@@ -1,7 +1,7 @@
 {% extends 'Master.html' %}
 
 {% block title %}
-  View Task
+  By Status
 {% endblock %}
 
 
@@ -13,29 +13,21 @@
       {% for c in category %}
         <li><a href="{% url 'category_view' c.id %}" class="dropdown-item">{{ c.categories }}</a></li>
       {% endfor %}
-     <li><hr class="dropdown-divider"></li>
-     <li><a href="{% url 'category_edit' %}" class="dropdown-item"><i class="bi bi-pencil-square text-success me-2"></i> Edit</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a href="{% url 'category_edit' %}" class="dropdown-item"><i class="bi bi-pencil-square text-success me-2"></i> Edit</a></li>
     </ul>
   </div>
   
 {% endblock %}
 
 
-
-
 {% block content %}
 <br>
-
-{% if messages %}
-  <script>
- {% for i in messages %}
-   alert("{{ i }}")
- {% endfor %}
- </script>
-{% endif %}
 <div class="container text-left ">
-{% if tasks %}
   
+{% if tasks %}
+  <h2>{{ from_status }} Tasks</h2>
+  <hr />
   <div class="row ">
     {% for t in tasks %}
     
@@ -48,7 +40,7 @@
             <div class="card-text"><span class="fw-bold">Category :</span> {{ t.category }}</div>
           </div>
           <div class="card-footer">
-            <a href="{%  url 'update' t.id %} " class="text-decoration-none btn btn-success"><i class="bi bi-arrow-clockwise me-2"></i>Update</a>
+            <a href="{%  url 'update' t.id %} " class="text-decoration-none btn btn-success"><i class="bi bi-arrow-clockwise me-2"></i> Update</a>
             <a href="{%  url 'delete' t.id %}" class="text-decoration-none btn btn-danger"><i class="bi bi-trash-fill me-2"></i>Delete</a>
           </div>
         </div>
@@ -66,7 +58,7 @@
             <p><span class="fw-bold">Due On :</span> {{ t.due_on }}</p>
           </div>
           <div class="card-footer">
-            <a href="{%  url 'update' t.id %} " class="text-decoration-none btn btn-success"><i class="bi bi-arrow-clockwise me-2"></i>Update</a>
+            <a href="{%  url 'update' t.id %} " class="text-decoration-none btn btn-success"><i class="bi bi-arrow-clockwise me-2"></i> Update</a>
             <a href="{%  url 'delete' t.id %}" class="text-decoration-none btn btn-danger"><i class="bi bi-trash-fill me-2"></i>Delete</a>
           </div>
         </div>
@@ -78,5 +70,7 @@
 <p class="border border-success border-2 bg-success-subtle p-3 rounded-1">No tasks created yet. <span><a href="{% url 'create' %}" class="text-decoration-none text-success">Create task</a></span></p>
 {% endif %}
 </div>
+
+
 
 {% endblock %}

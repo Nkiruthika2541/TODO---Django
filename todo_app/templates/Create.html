@@ -4,6 +4,24 @@
   Create Task
 {% endblock %}
 
+
+{% block category_dropdown %}
+
+  <div class="dropdown">
+    <button type="button" class="btn dropdown-toggle text-light" data-bs-toggle="dropdown">By Category </button>
+    <ul class="dropdown-menu">
+      {% for c in category %}
+        <li><a href="{% url 'category_view' c.id %}" class="dropdown-item">{{ c.categories }}</a></li>
+      {% endfor %}
+      <li><hr class="dropdown-divider"></li>
+      <li><a href="{% url 'category_edit' %}" class="dropdown-item"><i class="bi bi-pencil-square text-success me-2"></i> Edit</a></li>
+    </ul>
+  </div>
+  
+{% endblock %}
+
+
+
 {% block content %}
 <div class="container mt-5">
   <div class="row justify-content-center">
@@ -72,7 +90,7 @@
 
             <div class="d-grid">
               <button type="submit" class="btn btn-success">
-                Add Task
+                <i class="bi bi-plus-circle me-2"></i> Add Task
               </button>
             </div>
 

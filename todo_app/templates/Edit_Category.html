@@ -1,7 +1,7 @@
 {% extends 'Master.html' %}
 
 {% block title %}
-  Create Category
+  Edit Category
 {% endblock %}
 
 
@@ -28,34 +28,36 @@
 
       <div class="card shadow">
         <div class="card-header bg-success text-white">
-          <h4 class="mb-0">Create Category</h4>
+          <h4 class="mb-0">Update Category</h4>
         </div>
+
         <div class="card-body">
-          <form method="post">
+          <form action="{% url 'category_delete' %}" method="post" accept-charset="utf-8" onsubmit="return confirm('Are you sure you want ot delete this category ?\n\nNote : Tasks associated with this category also will be deleted.')">
             {% csrf_token %}
-            <br />
-            <!-- Category Field -->
-            <div class="mb-3">
-              <label for="{{ form.categories.id_for_label }}" class="form-label">
-                Category
-              </label>
-              
-              {{ form.categories }}
-              {% if form.categories.errors %}
-                <div class="text-danger small">
-                  {{ form.categories.errors }}
-                </div>
-              {% endif %}
-            </div>
-            <br />
-            <div class="d-grid">
-              <button type="submit" class="btn btn-success">
-                <i class="bi bi-plus-circle me-2"></i> Add Category
+            
+            <table>
+              {% for c in category %}
+              <tr >
+                <td><input type="checkbox" name="category" value="{{ c.id }}" /></td>
+                <td>{{ c.categories }}</td>
+              </tr>
+              {% endfor %}
+            </table>
+            
+            <div class="">
+              <button type="button" class="btn btn-success ">
+                <a href="{% url 'category' %}" class="text-decoration-none text-light"><i class="bi bi-plus-circle me-2"></i> Add New</a>
+              </button>
+              <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash-fill me-2"></i>Delete
               </button>
             </div>
           </form>
+            
         </div>
+
       </div>
+
     </div>
   </div>
 </div>
