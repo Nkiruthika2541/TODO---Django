@@ -67,7 +67,7 @@ How to Run Locally
 
 1. Clone the repository
 
-git clone https://github.com/yourusername/todo-app.git
+git clone https://github.com/Nkiruthika2541/TODO---Django.git
 
 2. Navigate to the project directory
 
